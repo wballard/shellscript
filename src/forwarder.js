@@ -15,6 +15,9 @@ module.exports = function (target, onGet){
         enumerate: function(){ var i=0,k=[]; for (k[i++] in target); return k }
     };
 
+    //why? well, you need to be able to get at methods on 'target' that are
+    //plenty well already defined, but we want to get at the prototype for
+    //methods that aren't defined
     return Proxy.create(Proxy.create({
         get: function(r, trap){
             return function(a, b){

@@ -3,7 +3,8 @@
 require '../shellscript'
 #oh yes -- a subshell, that is just like shell
 processes = $(ps '-ef')
+#yep -- just like a shell really
 console.log global['$?']
 for line in processes.split "\n"
-    if /node/.test line
-        console.log line
+    if /pidgrep/.test line
+        console.log 'woot'

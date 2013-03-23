@@ -1,0 +1,6 @@
+0
+  501 33014     1   0  9:26AM ??         1:22.19 /Users/wballard/homedirectory/nvm/v0.8.22/bin/node /Users/wballard/superforker/node_modules/forever/bin/monitor /Users/wballard/superforker/bin/server
+  501 33494 33014   0  9:27AM ??         0:00.56 node /Users/wballard/superforker/node_modules/coffee-script/bin/coffee /Users/wballard/superforker/bin/server start --root /Users/wballard/superforker/etc/handlers
+  501 67565 67564   0 12:58PM ttys005    0:00.10 node ./node_modules/coffee-script/bin/coffee --nodejs --harmony ./test/pidgrep
+  501 67566 67565   0 12:58PM ttys005    0:00.19 /Users/wballard/homedirectory/nvm/v0.8.11/bin/node --harmony /Users/wballard/shellscript/node_modules/coffee-script/bin/coffee ./test/pidgrep
+  501 67567 67566   0 12:58PM ttys005    0:00.05 node /var/folders/8t/bgtsnv9s0qq0jtfw3p9flm780000gn/T/makerjs_75740460e5f5810c9ddf

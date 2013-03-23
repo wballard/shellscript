@@ -1,5 +1,13 @@
+DIFF ?= git --no-pager diff --ignore-all-space --color-words --no-index
+
 .PHONY: test
 
-test:
-	./test/ascript
-	./test/pidgrep
+test: ascript pidgrep
+
+ascript:
+	./test/ascript > /tmp/$@
+	$(DIFF) /tmp/$@ test/expected/$@
+
+pidgrep:
+	./test/pidgrep > /tmp/$@
+	$(DIFF) /tmp/$@ test/expected/$@
