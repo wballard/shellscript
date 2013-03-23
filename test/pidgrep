@@ -1,0 +1,4 @@
+#!/usr/bin/env ./node_modules/coffee-script/bin/coffee --nodejs --harmony
+# vim: set syntax=coffee:
+require '../shellscript'
+processes = ps '-ef'

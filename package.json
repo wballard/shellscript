@@ -1,0 +1,15 @@
+{
+  "name": "shellscript",
+  "version": "0.0.1",
+  "description": "Use shell commands directly from nodejs, just as if they were functions.",
+  "main": "shellscript.js",
+  "dependencies": {
+    "coffee-script": ">=1.6.2"
+  },
+  "engine": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "make test"
+  }
+}
