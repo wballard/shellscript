@@ -18,7 +18,7 @@ console.log stuff
 ```
 
 And for even more fun, instead of `ls`, you can use any old shell
-command you like.
+command you like. Take a look in `test`.
 
 # How it Works #
 Using Harmony proxies, and intercepting the global namespace, bare words
