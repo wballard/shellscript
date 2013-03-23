@@ -3,8 +3,7 @@ Use shell commands directly from nodejs, just as if they were functions.
 
 # Sample #
 ```coffeescript
-output = ls '*'
-console.log output, $?, $$, $!
+ls '.'
 ```
 
 # How it Works #

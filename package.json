@@ -4,7 +4,8 @@
   "description": "Use shell commands directly from nodejs, just as if they were functions.",
   "main": "shellscript.js",
   "dependencies": {
-    "coffee-script": ">=1.6.2"
+    "coffee-script": ">=1.6.2",
+    "shelljs": ">=0.1.2"
   },
   "engine": {
     "node": ">=0.8.0"

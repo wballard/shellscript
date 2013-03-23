@@ -1,0 +1,5 @@
+#!/usr/bin/env ./node_modules/coffee-script/bin/coffee --nodejs --harmony
+# vim: set syntax=coffee:
+require '../shellscript'
+#you will need to have at least one argument, or a ()
+ls '.'
