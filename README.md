@@ -11,6 +11,12 @@ Or if you us just plain Javascript
 ls('.');
 ```
 
+And of course, you can subshell and capture output
+```coffeescript
+stuff = $(ls '.')
+console.log stuff
+```
+
 And for even more fun, instead of `ls`, you can use any old shell
 command you like.
 
