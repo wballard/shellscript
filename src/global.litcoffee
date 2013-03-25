@@ -29,5 +29,4 @@ The tricky part of making a proxy is you need to not proxy the basic methods.
 
 And now, hook this proxy over global...
 
-    console.log 'yep'
     global.__proto__ = smartproxy global
