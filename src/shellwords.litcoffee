@@ -17,6 +17,13 @@ Any output that we're left with on exit needs to be printed.
 
         process.on 'exit', flush
 
+Anything buffered, if there is another write, needs to be flushed.
+
+        log = console.log
+        console.log = ->
+            flush() if script_output.length
+            log.apply null, arguments
+
 In some sense it is a shame that shell uses $ as a subshell, and that jquery
 uses $ too. But oh well, here is the magical definition of $ that makes a
 subshell.

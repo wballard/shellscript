@@ -3,3 +3,5 @@
 require '../shellscript'
 #you will need to have at least one argument, or a ()
 ls '.'
+#and this needs to log *after*, meaning a flush is forced
+console.log 'the end'
