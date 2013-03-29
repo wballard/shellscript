@@ -4,5 +4,4 @@
 //
 //Noted.
 //
-require("coffee-script");
-global.__proto__ = require("./src/forwarder")(global.__proto__, require("./src/shellwords"));
+module.exports = require("./lib/shellscript");

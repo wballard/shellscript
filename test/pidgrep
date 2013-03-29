@@ -1,8 +1,8 @@
 #!/usr/bin/env ./node_modules/coffee-script/bin/coffee --nodejs --harmony
 # vim: set syntax=coffee:
-require '../shellscript'
+require('../shellscript').globalize()
 #oh yes -- a subshell, that is just like shell
-processes = $(ps '-ef')
+processes = $("ps -ef")
 #yep -- just like a shell really
 console.log global['$?']
 for line in processes.split "\n"

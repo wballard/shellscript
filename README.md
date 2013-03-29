@@ -1,43 +1,30 @@
 # Overview #
-Use shell commands directly from nodejs, just as if they were functions.
+Use shell commands directly from nodejs, nice and synchronous, so you
+can build easy command line scripts in node much like in Ruby.
 
 # Sample #
+So much like Ruby in fact, that here are the samples in coffeescript
+first.
 ```coffeescript
-ls '.'
+require('shellscript').globalize()
+shell "ls ."
 ```
 
 Or if you us just plain Javascript
 ```javascript
-ls('.');
+require('shellscript').globalize()
+shell("ls .");
 ```
 
 And of course, you can subshell and capture output
 ```coffeescript
-stuff = $(ls '.')
-console.log stuff
+require('shellscript').globalize()
+stuff = $("ls .")
 ```
 
-And for even more fun, instead of `ls`, you can use any old shell
-command you like. Take a look in `test`.
+# Functions #
 
-# How it Works #
-Using Harmony proxies, and intercepting the global namespace, bare words
-like `ls` above are translated from a syntax error to a shell command
-function, which is then called with the subsequent arguments via
-`child_process`.
-
-To make this as much like a shell as possible, commands are executed
-synchronously. You are always welcome to use `child_process` for
-asynchronous invocation as needed. This was inspired by
-[shelljs](https://github.com/arturadib/shelljs) except that I wanted to
-use any shell command, any time. So, maybe a bit more inspired by
-[sh](http://amoffat.github.com/sh/).
-
-# Important #
-You need to turn on your harmony options:
-```
-coffee --nodejs --harmony script.coffee
-node --harmony script.js
-```
-
-You can put this in your shebang
+## shell(command) ##
+This just runs a command using your current `$SHELL` or `/bin/sh` if not
+set. It pipes stdout and stderr into the parent, and blocks until
+complete. This is the workhorse _make a shell script_ function.

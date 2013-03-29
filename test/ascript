@@ -1,7 +1,7 @@
 #!/usr/bin/env ./node_modules/coffee-script/bin/coffee --nodejs --harmony
 # vim: set syntax=coffee:
-require '../shellscript'
+require('../shellscript').globalize()
 #you will need to have at least one argument, or a ()
-ls '.'
+results = shell "ls ."
 #and this needs to log *after*, meaning a flush is forced
-console.log 'the end'
+console.log results.exitCode
