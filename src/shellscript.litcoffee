@@ -24,7 +24,10 @@ $, the subshell command, returns stdout as a string. This is useful for string
 interpolation.
 
         $: (command, args...) ->
-            ret = sheller.shell command, true, args
+            if args.length
+                ret = sheller.shell command, true, args
+            else
+                ret = sheller.shell command, true
             if ret.exitCode
                 ''
             else

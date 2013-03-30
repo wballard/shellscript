@@ -122,7 +122,7 @@ static Handle<Value> Shell(const Arguments& args) {
             close(outpipe[0]);
             close(errpipe[0]);
             String::Utf8Value command(args[0]);
-            if (args.Length() > 2 and args[2]->IsArray()) {
+            if (args.Length() > 2 && args[2]->IsArray()) {
                 //arguments were specified, let's use this as a straight
                 //command rather than as a subshell
                 Local<Array> commandArguments = Local<Array>::Cast(args[2]);
