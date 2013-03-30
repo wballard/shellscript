@@ -5,3 +5,5 @@ require('../shellscript').globalize()
 results = shell "ls ."
 #and this needs to log *after*, meaning a flush is forced
 console.log results.exitCode
+#pipeline
+shell "ls . | grep lib"

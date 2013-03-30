@@ -10,6 +10,12 @@ require('shellscript').globalize()
 shell "ls ."
 ```
 
+And pipelines...
+```coffeescript
+require('shellscript').globalize()
+shell "ls . | grep lib"
+```
+
 Or if you us just plain Javascript
 ```javascript
 require('shellscript').globalize()
