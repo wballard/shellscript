@@ -28,10 +28,12 @@ static Handle<Value> Shell(const Arguments& args) {
 
     if (args[0]->IsString()) {
         //piping returns from the children through these
+        int inpipe[2];
         int outpipe[2];
         int errpipe[2];
         //pipe, not bothering with pedantic error handling as if this fails
         //there is no way to recover, it'll just nag you
+        pipe(inpipe);
         pipe(outpipe);
         pipe(errpipe);
 
@@ -40,7 +42,7 @@ static Handle<Value> Shell(const Arguments& args) {
             return ThrowException(Exception::Error(String::New("Failed to fork process")));
         } else if(pid) {
             //parent
-            //drain the piped back IO
+            close(inpipe[0]);
             close(outpipe[1]);
             close(errpipe[1]);
             //reading takes place here, this is a bit doubled up on the read
@@ -117,8 +119,10 @@ static Handle<Value> Shell(const Arguments& args) {
             setvbuf(stdout, (char*)NULL, _IONBF, 0);
             //move out and err to the pipes, again without the pedantic
             //error handling for which there is no recovery option
+            dup2(inpipe[0], STDIN_FILENO);
             dup2(outpipe[1], STDOUT_FILENO);
             dup2(errpipe[1], STDERR_FILENO);
+            close(inpipe[1]);
             close(outpipe[0]);
             close(errpipe[0]);
             String::Utf8Value command(args[0]);
