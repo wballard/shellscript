@@ -1,7 +1,7 @@
 DIFF ?= git --no-pager diff --ignore-all-space --color-words --no-index 
 .PHONY: test
 
-test: install
+test: 
 	$(MAKE) ascript pidgrep
 
 ascript:

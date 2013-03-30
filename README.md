@@ -53,3 +53,8 @@ An object with properties:
 Much like `shell` above, but instead of returning process information,
 returns the string that is stdout, or empty for a non-zero exit code.
 
+## $(command, args...) ##
+In this version, if you pass args, either as a CoffeeScript splat or
+JavaScript array, the command will be invoked directly without a
+subshell. This is a tiny bit faster, and sometimes what you need if you
+don't want to run a shell pipeline.

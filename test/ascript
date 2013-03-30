@@ -7,3 +7,5 @@ results = shell "ls ."
 console.log results.exitCode
 #pipeline
 shell "ls . | grep lib"
+#and with no subshell at all"
+console.log($ "echo", "Hi", ", ", "Mom")

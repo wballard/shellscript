@@ -10,6 +10,7 @@ you may know and love.
         globalize: ->
             global.shell = module.exports.shell
             global.$ = module.exports.$
+            global.run = module.exports.run
 
 The classic, run any shell command line, using your current shell. This is
 essentially `$SHELL -c <command>`. Streams stdout and stdin are connected
@@ -22,9 +23,11 @@ the shelled command is done, then returns the exit code.
 $, the subshell command, returns stdout as a string. This is useful for string
 interpolation.
 
-        $: (command) ->
-            ret = sheller.shell command, true
+        $: (command, args...) ->
+            ret = sheller.shell command, true, args
             if ret.exitCode
                 ''
             else
                 ret.stdout
+
+

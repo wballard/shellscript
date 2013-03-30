@@ -11,6 +11,18 @@
 using namespace v8;
 using namespace node;
 
+char *get(v8::Local<v8::Value> value, const char *fallback = "") {
+    if (value->IsString()) {
+        v8::String::Utf8Value string(value);
+        char *str = (char *) malloc(string.length() + 1);
+        strcpy(str, *string);
+        return str;
+    }
+    char *str = (char *) malloc(strlen(fallback) + 1);
+    strcpy(str, fallback);
+    return str;
+}
+
 static Handle<Value> Shell(const Arguments& args) {
     HandleScope scope;
 
@@ -108,18 +120,35 @@ static Handle<Value> Shell(const Arguments& args) {
             dup2(errpipe[1], STDERR_FILENO);
             close(outpipe[0]);
             close(errpipe[0]);
-            v8::String::Utf8Value command(args[0]);
-            //your-shell-here, this is the main 'improvement' over system(3)
-            char *shell = getenv("SHELL");
-            if (shell) {
-                int err = execl(shell, basename(shell), "-c", *command, NULL);
+            String::Utf8Value command(args[0]);
+            if (args.Length() > 2 and args[2]->IsArray()) {
+                //arguments were specified, let's use this as a straight
+                //command rather than as a subshell
+                Local<Array> commandArguments = Local<Array>::Cast(args[2]);
+                char * argv[commandArguments->Length() + 2];
+                argv[0] = *command;
+                for (uint i=0; i < commandArguments->Length(); i++){
+                    argv[i+1] = get(commandArguments->Get(i));
+                }
+                argv[commandArguments->Length() + 1] = NULL;
+                int err = execvp(*command, argv);
+                //we are going to exit rightaway, one way or another so no
+                //worries about freeing argv
                 //should not get here
                 exit(err);
             } else {
-                //at this point, the call is pretty much good old system(3)
-                int err = execl("/bin/sh", "sh", "-c", *command, NULL);
-                //should not get here
-                exit(err);
+                //arguments were specified, let's use this as a straight
+                //your-shell-here, this is the main 'improvement' over system(3)
+                if (char *shell = getenv("SHELL")) {
+                    int err = execl(shell, basename(shell), "-c", *command, NULL);
+                    //should not get here
+                    exit(err);
+                } else {
+                    //at this point, the call is pretty much good old system(3)
+                    int err = execl("/bin/sh", "sh", "-c", *command, NULL);
+                    //should not get here
+                    exit(err);
+                }
             }
         }
         //there really is no way to get here
