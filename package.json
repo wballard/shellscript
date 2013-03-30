@@ -1,8 +1,9 @@
 {
   "name": "shellscript",
   "version": "0.0.1",
+  "author": "Will Ballard <wballard@mailframe.net",
   "description": "Use shell commands directly from nodejs, nice any synchronous to make shell scripts.",
-  "main": "shellscript.js",
+  "main": "./shellscript.js",
   "gypfile": true,
   "license": "MIT",
   "dependencies": {
@@ -14,5 +15,17 @@
   "scripts": {
     "install": "node-gyp rebuild; make install",
     "test": "make test"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wballard/shellscript.git"
+  },
+  "keywords": [
+    "unix",
+    "shell",
+    "sync",
+    "synch",
+    "synchronous",
+    "exec"
+  ]
 }
