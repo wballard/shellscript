@@ -44,6 +44,7 @@ static Handle<Value> Shell(const Arguments& args) {
             do {
                 r = waitpid(pid, &status, WNOHANG);
             } while (r != -1);
+            //at this point, we are exited, come back with result codes
             Local<Object> result = Object::New();
             if (WIFEXITED(status)) {
                 result->Set(String::New("pid"), Integer::New(pid));
