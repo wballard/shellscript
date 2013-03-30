@@ -40,4 +40,10 @@ An object with properties:
 * pid: pid of the shelled process, now exited
 * exitCode: exit code of the shelled process
 * signalCode: signal on exit of the shelled process
+* stdout: standard out, captured as a string
+* stderr: standard error, captured as a string
+
+## $(command) ##
+Much like `shell` above, but instead of returning process information,
+returns the string that is stdout, or empty for a non-zero exit code.
 

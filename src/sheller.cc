@@ -31,14 +31,50 @@ static Handle<Value> Shell(const Arguments& args) {
             //drain the piped back IO
             close(outpipe[1]);
             close(errpipe[1]);
-            char buf;
-            const int len = 1;
-            while(read(outpipe[0], &buf, len) == len) {
-                write(STDOUT_FILENO, &buf, len);
+            //reading takes place here, this is a bit doubled up on the read
+            //avoid duplicating the rest of the function to support returning
+            //the string value of a shelled command
+            bool silenceStdOut = args.Length() > 1 && args[1]->IsTrue();
+            const int bufferSize = 1024;
+            char buffer[bufferSize];
+            char *returnStringBuffer = 0;
+            int totalBytesRead = 0;
+            int bytesRead = 0;
+            //stdout
+            while((bytesRead = read(outpipe[0], &buffer, bufferSize)) > 0) {
+                if (!silenceStdOut) {
+                    write(STDOUT_FILENO, &buffer, bytesRead);
+                }
+                returnStringBuffer = 
+                    (char*)realloc(returnStringBuffer, totalBytesRead + bytesRead);
+                if (returnStringBuffer) {
+                    memmove(&returnStringBuffer[totalBytesRead], buffer, bytesRead);
+                    totalBytesRead += bytesRead;
+                } else {
+                    //might as well exit, there isn't enough memory to even
+                    //make an exception
+                    exit(2);
+                }
             }
-            while(read(errpipe[0], &buf, len) == len) {
-                write(STDERR_FILENO, &buf, len);
+            Local<String> stdoutString = String::New(returnStringBuffer, totalBytesRead);
+            free(returnStringBuffer);
+            returnStringBuffer = 0;
+            totalBytesRead = 0;
+            while((bytesRead = read(errpipe[0], &buffer, bufferSize)) > 0) {
+                if (!silenceStdOut) {
+                    write(STDERR_FILENO, &buffer, bytesRead);
+                }
+                returnStringBuffer = 
+                    (char*)realloc(returnStringBuffer, totalBytesRead + bytesRead);
+                if (returnStringBuffer) {
+                    memmove(&returnStringBuffer[totalBytesRead], buffer, bytesRead);
+                    totalBytesRead += bytesRead;
+                } else {
+                    exit(2);
+                }
             }
+            Local<String> stderrString = String::New(returnStringBuffer, totalBytesRead);
+            free(returnStringBuffer);
             //wait for the child to exit, this makes the world synchronou
             int r, status;
             do {
@@ -46,19 +82,21 @@ static Handle<Value> Shell(const Arguments& args) {
             } while (r != -1);
             //at this point, we are exited, come back with result codes
             Local<Object> result = Object::New();
+            result->Set(String::New("pid"), Integer::New(pid));
+            result->Set(String::New("stdout"), stdoutString);
+            result->Set(String::New("stderr"), stderrString);
             if (WIFEXITED(status)) {
-                result->Set(String::New("pid"), Integer::New(pid));
                 result->Set(String::New("exitCode"), Integer::New(WEXITSTATUS(status)));
                 result->Set(String::New("signalCode"), Null());
                 return scope.Close(result);
             }
             else if (WIFSIGNALED(status)) {
-                result->Set(String::New("pid"), Integer::New(pid));
                 result->Set(String::New("exitCode"), Null());
                 result->Set(String::New("signalCode"), Integer::New(WTERMSIG(status)));
                 return scope.Close(result);
             } else {
-                return scope.Close(Undefined());
+                //this is to cover the if, we don't get here
+                assert(false);
             }
         } else {
             //child

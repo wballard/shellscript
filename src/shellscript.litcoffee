@@ -18,3 +18,13 @@ the shelled command is done, then returns the exit code.
 
         shell: (command) ->
             sheller.shell command
+
+$, the subshell command, returns stdout as a string. This is useful for string
+interpolation.
+
+        $: (command) ->
+            ret = sheller.shell command, true
+            if ret.exitCode
+                ''
+            else
+                ret.stdout
