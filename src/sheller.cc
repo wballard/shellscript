@@ -47,6 +47,7 @@ static Handle<Value> Shell(const Arguments& args) {
             //avoid duplicating the rest of the function to support returning
             //the string value of a shelled command
             bool silenceStdOut = args.Length() > 1 && args[1]->IsTrue();
+            bool silenceStdErr = false;
             const int bufferSize = 1024;
             char buffer[bufferSize];
             char *returnStringBuffer = 0;
@@ -73,7 +74,7 @@ static Handle<Value> Shell(const Arguments& args) {
             returnStringBuffer = 0;
             totalBytesRead = 0;
             while((bytesRead = read(errpipe[0], &buffer, bufferSize)) > 0) {
-                if (!silenceStdOut) {
+                if (!silenceStdErr) {
                     write(STDERR_FILENO, &buffer, bytesRead);
                 }
                 returnStringBuffer = 
