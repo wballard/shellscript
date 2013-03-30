@@ -37,10 +37,7 @@ complete. This is the workhorse _make a shell script_ function.
 ### Returns ###
 An object with properties:
 
-pid
-: pid of the shelled process, now exited
-exitCode
-: exit code of the shelled process
-signalCode
-: signal on exit of the shelled process
+* pid: pid of the shelled process, now exited
+* exitCode: exit code of the shelled process
+* signalCode: signal on exit of the shelled process
 
