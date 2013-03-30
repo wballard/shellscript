@@ -13,7 +13,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "install": "node-gyp rebuild; make install",
+    "postinstall": "make install",
     "test": "make test"
   },
   "repository": {
