@@ -13,7 +13,7 @@ pidgrep:
 	$(DIFF) /tmp/$@ test/expected/$@
 
 install:
-	./node_modules/coffee-script/bin/coffee -o ./lib ./src/*.*coffee
+	coffee -o ./lib ./src/*.*coffee
 
 clean:
 	-rm -rf node_modules
