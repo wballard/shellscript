@@ -17,8 +17,12 @@ essentially `$SHELL -c <command>`. Streams stdout and stdin are connected
 with your parent process, running out the command line. This blocks until
 the shelled command is done, then returns the exit code.
 
-        shell: (command) ->
-            sheller.shell command
+        shell: (command, exitOnError) ->
+            ret = sheller.shell command
+            if exitOnError and ret.exitCode
+                console.error "#{command}"
+                process.exit ret.exitCode
+            ret
 
 $, the subshell command, returns stdout as a string. This is useful for string
 interpolation.

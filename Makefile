@@ -2,6 +2,7 @@ DIFF ?= git --no-pager diff --ignore-all-space --color-words --no-index
 .PHONY: test
 
 test: 
+	npm install
 	$(MAKE) ascript pidgrep
 
 ascript:

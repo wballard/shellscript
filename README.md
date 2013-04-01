@@ -35,10 +35,14 @@ Puts shellscript's functions on global, so you can call them without
 an intermediate variable or namespace, useful to make this feel a lot
 more like other languages with built in synchronous shelling.
 
-## shell(command) ##
+## shell(command, exitOnError) ##
 This just runs a command using your current `$SHELL` or `/bin/sh` if not
 set. It pipes stdout and stderr into the parent, and blocks until
 complete. This is the workhorse _make a shell script_ function.
+
+If `exitOnError` is true, this will exit the process for any non 0 exit
+code. Handy if you just want to exit and avoid error checking the return
+object.
 
 ### Returns ###
 An object with properties:
