@@ -2,13 +2,11 @@ Makefile
 README.md
 binding.gyp
 build
-lib
 node_modules
 package.json
 shellscript.js
 src
 test
 0
-lib
 Hi ,  Mom
 

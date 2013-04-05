@@ -4,4 +4,5 @@
 //
 //Noted.
 //
-module.exports = require("./lib/shellscript");
+require('coffee-script');
+module.exports = require("./src/shellscript");

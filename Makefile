@@ -2,7 +2,6 @@ DIFF ?= git --no-pager diff --ignore-all-space --color-words --no-index
 .PHONY: test
 
 test: 
-	npm install
 	$(MAKE) ascript pidgrep
 
 ascript:
@@ -13,12 +12,8 @@ pidgrep:
 	./test/pidgrep > /tmp/$@
 	$(DIFF) /tmp/$@ test/expected/$@
 
-install:
-	coffee -o ./lib ./src/*.*coffee
-
 clean:
-	-rm -rf node_modules
-	-rm -rf lib
+	-rm -rf node_modules build
 
 rebuild: clean
 	npm install
