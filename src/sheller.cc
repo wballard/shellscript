@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <assert.h>
 #include <libgen.h>
+#include <string.h>
 
 using namespace v8;
 using namespace node;
