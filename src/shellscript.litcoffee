@@ -1,13 +1,13 @@
 High level, synchronous interface to let you build just plain shell scripts.
 
     sheller = require '../build/Release/sheller'
-    module.exports =
+    module.exports = {}
 
 
 Register all our functions as globals, this makes it a lot like other languages
 you may know and love.
 
-        globalize: ->
+    module.exports.globalize = ->
             global.shell = module.exports.shell
             global.$ = module.exports.$
             global.run = module.exports.run
@@ -17,7 +17,7 @@ essentially `$SHELL -c <command>`. Streams stdout and stdin are connected
 with your parent process, running out the command line. This blocks until
 the shelled command is done, then returns the exit code.
 
-        shell: (command, exitOnError) ->
+    module.exports.shell = (command, exitOnError) ->
             ret = sheller.shell command
             if exitOnError and ret.exitCode
                 console.error "#{command}"
@@ -27,7 +27,7 @@ the shelled command is done, then returns the exit code.
 $, the subshell command, returns stdout as a string. This is useful for string
 interpolation.
 
-        $: (command, args...) ->
+    module.exports.$ = (command, args...) ->
             if args.length
                 ret = sheller.shell command, true, args
             else
