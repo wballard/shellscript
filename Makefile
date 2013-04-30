@@ -4,6 +4,9 @@ DIFF ?= git --no-pager diff --ignore-all-space --color-words --no-index
 test: 
 	$(MAKE) ascript pidgrep
 
+test_pass:
+	DIFF=cp $(MAKE) test
+
 ascript:
 	./test/ascript > /tmp/$@
 	$(DIFF) /tmp/$@ test/expected/$@

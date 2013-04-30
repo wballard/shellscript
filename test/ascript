@@ -1,6 +1,6 @@
 #!/usr/bin/env ./node_modules/coffee-script/bin/coffee --nodejs --harmony
 # vim: set syntax=coffee:
-require('../shellscript').globalize()
+require('../src/shellscript').globalize()
 #you will need to have at least one argument, or a ()
 results = shell "ls ."
 #and this needs to log *after*, meaning a flush is forced

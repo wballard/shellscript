@@ -4,7 +4,7 @@ binding.gyp
 build
 node_modules
 package.json
-shellscript.js
+shellscript
 src
 test
 0

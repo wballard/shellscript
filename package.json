@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Will Ballard <wballard@mailframe.net",
   "description": "Use shell commands directly from nodejs, nice any synchronous to make shell scripts.",
-  "main": "./shellscript.js",
+  "main": "./src/shellscript.js",
   "gypfile": true,
   "license": "MIT",
   "dependencies": {
