@@ -1,4 +1,4 @@
-#!/usr/bin/env ./node_modules/coffee-script/bin/coffee --nodejs --harmony
+#!/usr/bin/env ./node_modules/coffee-script/bin/coffee
 # vim: set syntax=coffee:
 require('../src/shellscript').globalize()
 #you will need to have at least one argument, or a ()

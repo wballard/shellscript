@@ -61,7 +61,7 @@ static Handle<Value> Shell(const Arguments& args) {
                 if (!silenceStdOut) {
                     write(STDOUT_FILENO, &buffer, bytesRead);
                 }
-                returnStringBuffer = 
+                returnStringBuffer =
                     (char*)realloc(returnStringBuffer, totalBytesRead + bytesRead);
                 if (returnStringBuffer) {
                     memmove(&returnStringBuffer[totalBytesRead], buffer, bytesRead);
@@ -80,7 +80,7 @@ static Handle<Value> Shell(const Arguments& args) {
                 if (!silenceStdErr) {
                     write(STDERR_FILENO, &buffer, bytesRead);
                 }
-                returnStringBuffer = 
+                returnStringBuffer =
                     (char*)realloc(returnStringBuffer, totalBytesRead + bytesRead);
                 if (returnStringBuffer) {
                     memmove(&returnStringBuffer[totalBytesRead], buffer, bytesRead);
@@ -168,3 +168,5 @@ extern "C" void init(Handle<Object> exports) {
     HandleScope scope;
     NODE_SET_METHOD(exports, "shell", Shell);
 }
+
+NODE_MODULE(sheller, init)
