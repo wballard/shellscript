@@ -96,6 +96,9 @@ static Handle<Value> Shell(const Arguments& args) {
             do {
                 r = waitpid(pid, &status, WNOHANG);
             } while (r != -1);
+            close(inpipe[1]);
+            close(outpipe[0]);
+            close(errpipe[0]);
             //at this point, we are exited, come back with result codes
             Local<Object> result = Object::New();
             result->Set(String::New("pid"), Integer::New(pid));
@@ -126,6 +129,9 @@ static Handle<Value> Shell(const Arguments& args) {
             close(inpipe[1]);
             close(outpipe[0]);
             close(errpipe[0]);
+            close(inpipe[0]);
+            close(outpipe[1]);
+            close(errpipe[1]);
             String::Utf8Value command(args[0]);
             if (args.Length() > 2 && args[2]->IsArray()) {
                 //arguments were specified, let's use this as a straight
