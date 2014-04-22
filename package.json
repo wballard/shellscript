@@ -1,7 +1,7 @@
 {
   "name": "shellscript",
-  "version": "0.1.0",
-  "author": "Will Ballard <wballard@mailframe.net",
+  "version": "0.1.1",
+  "author": "Will Ballard <wballard@mailframe.net>",
   "description": "Use shell commands directly from nodejs to make synchronous shell scripts.",
   "main": "./src/shellscript.js",
   "gypfile": true,
